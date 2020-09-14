@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Dartt\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Dartt\\.nuget\\packages"
+    ]
+  }
+}
