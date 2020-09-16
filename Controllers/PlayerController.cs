@@ -24,7 +24,7 @@ namespace GameWebApi.Controllers
         [Route("create")]
         public async Task<Player> Create([FromBody] NewPlayer player)
         {
-            DateTime localDate = DateTime.Now;
+            DateTime localDate = DateTime.UtcNow;
 
             Player new_player = new Player();
             new_player.Name = player.Name;
@@ -35,7 +35,7 @@ namespace GameWebApi.Controllers
             new_player.CreationTime = localDate;
 
             await _irepository.Create(new_player);
-            return null;
+            return new_player;
         }
         /*
         [HttpGet]
@@ -72,8 +72,8 @@ namespace GameWebApi.Controllers
             return list_players;
         }
 
-        [HttpGet]
-        [Route("Delete/{id:Guid}")]
+        [HttpDelete]
+        [Route("{id:Guid}")]
         public async Task<Player> Delete(Guid id)
         {
             await _irepository.Delete(id);

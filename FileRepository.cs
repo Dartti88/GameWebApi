@@ -30,9 +30,10 @@ namespace GameWebApi
             {
                 if (players.list_players[i].Id == id)
                 {
+                    Player deleted_p = players.list_players[i];
                     players.list_players.RemoveAt(i);
                     File.WriteAllText("game-dev.txt", JsonConvert.SerializeObject(players));
-                    return null;
+                    return deleted_p;
                 }
             }
 
@@ -43,31 +44,26 @@ namespace GameWebApi
         public async Task<Player> Get(Guid id)
         {
             ListHolder players = await ReadFile();
-            var result = new Player();
+
             foreach (var p in players.list_players)
             {
                 if (p.Id == id)
                 {
-                    result = p;
-                    break;
+                    return p;
                 }
             }
-            return result;
+            return null;
         }
 
         public async Task<Player[]> GetAll()
         {
-            //string stations = await response.Content.ReadAsStringAsync();
-            //BikeRentalStationList list = JsonConvert.DeserializeObject<BikeRentalStationList>(stations);
             ListHolder players = await ReadFile();
-            //Task<Player[]> players = JsonConvert.DeserializeObject<Task<Player[]>>(text);
             return players.list_players.ToArray();
         }
 
         public async Task<Player> Modify(Guid id, ModifiedPlayer player)
         {
             ListHolder players = await ReadFile();
-            var result = new Player();
 
             foreach (var p in players.list_players)
             {
@@ -75,10 +71,10 @@ namespace GameWebApi
                 {
                     p.Score = player.Score;
                     File.WriteAllText("game-dev.txt", JsonConvert.SerializeObject(players));
-                    break;
+                    return p;
                 }
             }
-            return result;
+            return null;
         }
 
         public async Task<ListHolder> ReadFile()
@@ -87,18 +83,18 @@ namespace GameWebApi
             string json = await File.ReadAllTextAsync("game-dev.txt");
             //return JsonConvert.DeserializeObject<ListHolder>(json);
 
-            if (File.ReadAllText("game-dev.txt").Length != 0)
+            if (json.Length != 0)
             {
                 return JsonConvert.DeserializeObject<ListHolder>(json);
             }
 
             return players;
         }
-
-        public void WriteFile(String text)
-        {
-            File.WriteAllText("game-dev.txt", JsonConvert.SerializeObject(text));
-        }
-
+        /*
+                public void WriteFile(String text)
+                {
+                    File.WriteAllText("game-dev.txt", JsonConvert.SerializeObject(text));
+                }
+        */
     }
 }
