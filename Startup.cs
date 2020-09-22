@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -26,7 +27,8 @@ namespace GameWebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<IRepository, FileRepository>();
+            //services.AddSingleton<IRepository, FileRepository>();
+            services.AddSingleton<IRepository, MongoDbRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,6 +38,22 @@ namespace GameWebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseMyMiddleware();
+
+            app.Use(async (context, next) =>
+            {
+                var endpoint = context.GetEndpoint();
+
+                if (endpoint != null)
+                {
+                    throw new NotFoundException("404 Not Found");
+                }
+
+                // Do work that doesn't write to the Response.
+                await next.Invoke();
+                // Do other work that doesn't write to the Response.
+            });
 
             //app.UseHttpsRedirection();
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace GameWebApi
@@ -11,6 +12,7 @@ namespace GameWebApi
         public int Level { get; set; }
         public bool IsBanned { get; set; }
         public DateTime CreationTime { get; set; }
+        public List<Item> list_items = new List<Item>();
 
         public static implicit operator Task<object>(Player v)
         {
