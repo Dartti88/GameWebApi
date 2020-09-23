@@ -41,7 +41,9 @@ namespace GameWebApi
 
         public async Task<Player[]> GetAll()
         {
-            var players = await _playerCollection.Find(new BsonDocument()).ToListAsync();
+            var filter = Builders<Player>.Filter.Empty;
+            var players = await _playerCollection.Find(filter).ToListAsync();
+            //var players = await _playerCollection.Find(new BsonDocument()).ToListAsync();
             return players.ToArray();
         }
 
