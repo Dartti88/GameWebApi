@@ -96,6 +96,86 @@ namespace GameWebApi.Controllers
             return null;
         }
 
+        [HttpGet] //GetPlayersWithXscore?minScore=x
+        [Route("GetPlayersWithXscore")]
+        public async Task<Player> GetPlayersWithXscore(int minScore)
+        {
+            await _irepository.GetPlayersWithXscore(minScore);
+            return null;
+        }
+
+        [HttpGet] //"Anna"
+        [Route("name:string")]
+        public async Task<Player> GetPlayerWithName(string name)
+        {
+            await _irepository.GetPlayerWithName(name);
+            return null;
+        }
+
+        [HttpGet] //"Anna"
+        [Route("GetPlayersWithTag/tag:string")]
+        public async Task<Player> GetPlayersWithTag(string tag)
+        {
+            await _irepository.GetPlayersWithTag(tag);
+            return null;
+        }
+
+        [HttpGet] //"Anna"
+        [Route("GetItemWithProperty/level:int")]
+        public async Task<Player> GetItemWithProperty(int level)
+        {
+            await _irepository.GetItemWithProperty(level);
+            return null;
+        }
+
+        [HttpGet] //"Anna"
+        [Route("GetPlayersWithXItems/itemAmount:int")]
+        public async Task<Player> GetPlayersWithXItems(int itemAmount)
+        {
+            await _irepository.GetPlayersWithXItems(itemAmount);
+            return null;
+        }
+
+        [HttpGet] //"Anna"
+        [Route("UpdatePlayerName/new_name:string")]
+        public async Task<Player> UpdatePlayerName(Guid id, string new_name)
+        {
+            await _irepository.UpdatePlayerName(id, new_name);
+            return null;
+        }
+
+        [HttpGet]
+        [Route("IncrementScore/score_add:int")]
+        public async Task<Player> IncrementScore(Guid id, int score_add)
+        {
+            await _irepository.IncrementScore(id, score_add);
+            return null;
+        }
+
+        [HttpPost] //{"Score":5}
+        [Route("PushItem/{id:Guid}")]
+        public async Task<Player> PushItem(Guid id, [FromBody] Item item)
+        {
+            await _irepository.PushItem(id, item);
+            return null;
+        }
+
+
+        [HttpDelete]
+        [Route("{player_id:Guid}/items/{items_id:Guid}")]
+        public async Task<Player> DeleteItemAndScore(Guid player_id, Guid items_id)
+        {
+            await _irepository.DeleteItemAndScore(player_id, items_id);
+            return null;
+        }
+
+        [HttpGet]
+        [Route("GetTop10Players")]
+        public async Task<Player> GetTop10Players()
+        {
+            await _irepository.GetTop10Players();
+            return null;
+        }
 
     }
 }

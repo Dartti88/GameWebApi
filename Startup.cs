@@ -40,21 +40,21 @@ namespace GameWebApi
             }
 
             app.UseMyMiddleware();
-
-            app.Use(async (context, next) =>
-            {
-                var endpoint = context.GetEndpoint();
-
-                if (endpoint != null)
+            /*
+                app.Use(async (context, next) =>
                 {
-                    throw new NotFoundException("404 Not Found");
-                }
+                    var endpoint = context.GetEndpoint();
 
-                // Do work that doesn't write to the Response.
-                await next.Invoke();
-                // Do other work that doesn't write to the Response.
-            });
+                    if (endpoint != null)
+                    {
+                        throw new NotFoundException("404 Not Found");
+                    }
 
+                    // Do work that doesn't write to the Response.
+                    await next.Invoke();
+                    // Do other work that doesn't write to the Response.
+                });
+            */
             //app.UseHttpsRedirection();
 
             app.UseRouting();

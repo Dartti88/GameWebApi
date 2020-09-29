@@ -14,6 +14,8 @@ namespace GameWebApi
         public DateTime CreationTime { get; set; }
         public List<Item> list_items = new List<Item>();
 
+        public string[] Tags = { "active", "disabled" };
+
         public static implicit operator Task<object>(Player v)
         {
             throw new NotImplementedException();

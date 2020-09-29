@@ -18,7 +18,7 @@ namespace GameWebApi
             {
                 await _next(context);
             }
-            catch (NotFoundException e)
+            catch (NotFoundException)
             {
                 context.Response.StatusCode = 404;
                 throw new NotFoundException("404 Not Found");
